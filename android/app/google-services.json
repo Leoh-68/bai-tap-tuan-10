@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "80698558691",
+    "project_id": "doanltdd-46247",
+    "storage_bucket": "doanltdd-46247.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80698558691:android:cd6022cb4b68903b011dd6",
+        "android_client_info": {
+          "package_name": "com.example.baitaptuan_10"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80698558691-sc759r2invh6esm4hcq6jm66i14hffbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBye46vWM-lCrKj5BTpNuM_LJ37cADgrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80698558691-sc759r2invh6esm4hcq6jm66i14hffbc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
