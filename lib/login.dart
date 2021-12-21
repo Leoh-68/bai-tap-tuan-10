@@ -29,6 +29,7 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color.fromRGBO(154, 175, 65, 1),
         body: Stack(
           children: <Widget>[
@@ -83,55 +84,54 @@ class LoginPageState extends State<LoginPage> {
                             height: 50,
                             child: TextButton(
                               onPressed: () {
-                                // setState(() {});
-                                // if (_username.text == "a" &&
-                                //     _pass.text == "a") {
-                                //   Navigator.push(
-                                //     context,
-                                //     PageRouteBuilder(
-                                //       pageBuilder: (BuildContext context,
-                                //           Animation animation,
-                                //           Animation secondaryAnimation) {
-                                //         return const LoadingScreen();
-                                //       },
-                                //       transitionsBuilder: (BuildContext context,
-                                //           Animation<double> animation,
-                                //           Animation<double> secondaryAnimation,
-                                //           Widget child) {
-                                //         return SlideTransition(
-                                //           position: Tween<Offset>(
-                                //             begin: const Offset(1.0, 0.0),
-                                //             end: Offset.zero,
-                                //           ).animate(animation),
-                                //           child: child,
-                                //         );
-                                //       },
-                                //     ),
-                                //   );
-                                // } else {
-                                //   Navigator.push(
-                                //     context,
-                                //     PageRouteBuilder(
-                                //       pageBuilder: (BuildContext context,
-                                //           Animation animation,
-                                //           Animation secondaryAnimation) {
-                                //         return const ErrorPage();
-                                //       },
-                                //       transitionsBuilder: (BuildContext context,
-                                //           Animation<double> animation,
-                                //           Animation<double> secondaryAnimation,
-                                //           Widget child) {
-                                //         return SlideTransition(
-                                //           position: Tween<Offset>(
-                                //             begin: const Offset(1.0, 0.0),
-                                //             end: Offset.zero,
-                                //           ).animate(animation),
-                                //           child: child,
-                                //         );
-                                //       },
-                                //     ),
-                                //   );
-                                // }
+                                setState(() {});
+                                if (_username.text == "a" &&
+                                    _pass.text == "a") {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      PageRouteBuilder(pageBuilder:
+                                          (BuildContext context,
+                                              Animation animation,
+                                              Animation secondaryAnimation) {
+                                        return const LoadingScreen();
+                                      }, transitionsBuilder: (BuildContext
+                                              context,
+                                          Animation<double> animation,
+                                          Animation<double> secondaryAnimation,
+                                          Widget child) {
+                                        return SlideTransition(
+                                          position: Tween<Offset>(
+                                            begin: const Offset(1.0, 0.0),
+                                            end: Offset.zero,
+                                          ).animate(animation),
+                                          child: child,
+                                        );
+                                      }),
+                                      (Route route) => false);
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (BuildContext context,
+                                          Animation animation,
+                                          Animation secondaryAnimation) {
+                                        return const ErrorPage();
+                                      },
+                                      transitionsBuilder: (BuildContext context,
+                                          Animation<double> animation,
+                                          Animation<double> secondaryAnimation,
+                                          Widget child) {
+                                        return SlideTransition(
+                                          position: Tween<Offset>(
+                                            begin: const Offset(1.0, 0.0),
+                                            end: Offset.zero,
+                                          ).animate(animation),
+                                          child: child,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                }
                               },
                               style: ButtonStyle(
                                   backgroundColor:
