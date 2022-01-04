@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 )
-              : const Text("Từ điển")),
+              : const Text("Bạn muốn đi đâu ?")),
           actions: [
             IconButton(
               icon: Icon(typing ? Icons.done : Icons.search),
