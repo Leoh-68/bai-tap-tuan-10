@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 )
-              : const Text("Travel App")),
+              : const Text("Bạn muốn đi đâu ?")),
           actions: [
             IconButton(
               icon: Icon(typing ? Icons.done : Icons.search),
