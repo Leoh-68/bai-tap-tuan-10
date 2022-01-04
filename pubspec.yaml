@@ -29,6 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.13.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -72,6 +73,7 @@ flutter:
     - images/5.jpg
     - images/6.jpg
     - images/7.jpg
+    - images/da-lat.jpg
     - images/loading.png
   #   - images/a_dot_ham.jpeg
 

@@ -1,8 +1,11 @@
 import 'package:baitaptuan_10/login.dart';
 import 'package:baitaptuan_10/profile.dart';
-
+import 'Model/hinh_anh_dia_danh.dart';
+import 'Model/dia_danh.dart';
+import 'Api/api.dart';
 import 'main.dart';
 import 'package:flutter/material.dart';
+import 'package:baitaptuan_10/ApiFolder/dia_danh_show.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -14,6 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int countter = 2;
   bool typing = false;
   String text = "";
+  String location = "3";
   late TextEditingController _controller;
 
   @override
@@ -53,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 )
-              : const Text("Từ điển")),
+              : const Text("Travel App")),
           actions: [
             IconButton(
               icon: Icon(typing ? Icons.done : Icons.search),
@@ -145,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        body: Column(
+        body: ListView(
           children: [
             Stack(
               children: [
@@ -165,43 +169,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             blurRadius: 6)
                       ]),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     // IconButton(
-                //     //   onPressed: () => Navigator.pop(context),
-                //     //   icon: Icon(Icons.arrow_back_ios_new),
-                //     //   iconSize: 30,
-                //     //   color: Colors.black,
-                //     // ),
-                //     IconButton(
-                //       onPressed: () => Navigator.pop(context),
-                //       icon: CircleAvatar(
-                //         backgroundImage: AssetImage('images/$_counter.jpg'),
-                //       ),
-                //       iconSize: 50,
-                //     ),
-                //     Row(
-                //       children: [
-                //         Positioned(
-                //             child: Container(
-                //           decoration: BoxDecoration(
-                //             color: Colors.white,
-                //             borderRadius: BorderRadius.circular(10),
-                //           ),
-                //           width: 313,
-                //           height: 30,
-                //           child: Padding(
-                //             padding: const EdgeInsets.all(8.0),
-                //             child: TextField(
-                //               decoration: InputDecoration(hintText: "Tìm kiếm"),
-                //             ),
-                //           ),
-                //         )),
-                //       ],
-                //     )
-                //   ],
-                // ),
                 Positioned(
                     left: 20,
                     bottom: 20,
@@ -241,9 +208,9 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Container(
                   height: 50,
-                  width: 50,
+                  width: ((dvsize.width - 18) / 100) * 25,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(5),
                       color: Colors.grey),
                   child: IconButton(
                     onPressed: () {},
@@ -252,9 +219,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   height: 50,
-                  width: 50,
+                  width: ((dvsize.width - 18) / 100) * 25,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(5),
                       color: Colors.grey),
                   child: IconButton(
                     onPressed: () {},
@@ -263,9 +230,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   height: 50,
-                  width: 50,
+                  width: ((dvsize.width - 18) / 100) * 25,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(5),
                       color: Colors.grey),
                   child: IconButton(
                     onPressed: () {},
@@ -274,9 +241,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   height: 50,
-                  width: 50,
+                  width: ((dvsize.width - 18) / 100) * 25,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(5),
                       color: Colors.grey),
                   child: IconButton(
                     onPressed: () {},
@@ -339,52 +306,119 @@ class _MyHomePageState extends State<MyHomePage> {
                       })),
             ),
             Expanded(
-                child: ListView.builder(
-                    itemCount: 5,
-                    itemBuilder: (BuildContext contex, int index) {
-                      countter++;
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Stack(
-                          children: [
-                            Container(
-                              child: Row(
-                                children: [
-                                  Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50)),
-                                      height: 200,
-                                      width: dvsize.width - 18,
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image(
-                                              image: AssetImage('images/1.jpg'),
-                                              fit: BoxFit.cover))),
-                                ],
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Positioned(
-                                  left: 20,
-                                  bottom: 20,
-                                  child: Text(
-                                    "Đà Lạt",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                Text("Việt Nam")
-                              ],
-                            )
-                          ],
-                        ),
-                      );
-                    }))
+                child: FutureBuilder<List<DiaDanh>>(
+                    future: api_GetAll_DiaDanh(),
+                    builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+                      if (snapshot.hasError) {
+                        print(snapshot.error);
+                      }
+                      return snapshot.hasData
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (contex, index) {
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                TextButton(
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      50)),
+                                                      height: 200,
+                                                      width: dvsize.width - 32,
+                                                      child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          child: FutureBuilder<
+                                                                  String>(
+                                                              future: api_Image_DiaDanh(
+                                                                  snapshot
+                                                                      .data![
+                                                                          index]
+                                                                      .id),
+                                                              builder: (context,
+                                                                  snapshot2) {
+                                                                return snapshot2
+                                                                        .hasData
+                                                                    ? Image(
+                                                                        image: AssetImage('images/' +
+                                                                            snapshot2
+                                                                                .data! +
+                                                                            '.jpg'),
+                                                                        fit: BoxFit
+                                                                            .cover)
+                                                                    : const CircularProgressIndicator();
+                                                              }))),
+                                                  onPressed: () {},
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    TextButton(
+                                      child: Container(
+                                        padding: EdgeInsets.only(
+                                            bottom: 10, left: 10),
+                                        child: Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                snapshot
+                                                    .data![index].tenDiaDanh!
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text(snapshot.data![index].viTri!,
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (contex) => Detail(
+                                                    id: snapshot.data![index].id
+                                                        .toString(),
+                                                    name: snapshot
+                                                        .data![index].tenDiaDanh
+                                                        .toString(),
+                                                    location: snapshot
+                                                        .data![index].viTri!,
+                                                    image: location)));
+                                      },
+                                    )
+                                  ],
+                                );
+                              })
+                          : const Center(
+                              child: Padding(
+                                  padding: EdgeInsets.only(top: 250),
+                                  child: CircularProgressIndicator()));
+                    })),
           ],
         ));
   }
