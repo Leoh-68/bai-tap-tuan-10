@@ -1,6 +1,9 @@
 import 'package:baitaptuan_10/login.dart';
 import 'package:baitaptuan_10/profile.dart';
 
+import 'package:baitaptuan_10/data.dart';
+import 'package:baitaptuan_10/Sites/detail.dart';
+
 import 'main.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +30,12 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
     _controller = TextEditingController();
   }
+
+  List<String> item=[
+    "Vịnh Hạ Long.",
+    "Vịnh Hạ Long.",
+    
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -147,6 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: [
+            
             Stack(
               children: [
                 Container(
@@ -154,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage("images/1.jpg"), fit: BoxFit.cover),
+                          image: AssetImage(items[0].image,), fit: BoxFit.cover),
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(10),
                           bottomRight: Radius.circular(10)),
@@ -209,7 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Núi fuji",
+                          items[0].titel,
                           style: TextStyle(
                               letterSpacing: 1.5,
                               color: Colors.white,
@@ -226,7 +236,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Container(
                               padding: EdgeInsets.only(left: 10),
                               child: Text(
-                                "Nhật bản",
+                                items[0].location,
                                 style: TextStyle(color: Colors.white),
                               ),
                             )
@@ -235,6 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     )),
               ],
+              
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -302,7 +313,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       itemCount: 5,
                       itemBuilder: (BuildContext contex, int index) {
                         _counter++;
-                        return Padding(
+                        return  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (builder) => DetailsPage(
+                               item: items[0]
+                            ),
+                          ),
+                        );
+                      },
+                      child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
@@ -324,7 +346,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       BorderRadius.circular(10),
                                                   child: Image(
                                                       image: AssetImage(
-                                                          'images/1.jpg'),
+                                                          items[0].image,),
                                                       fit: BoxFit.cover))),
                                         ],
                                       ),
@@ -332,10 +354,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ],
                                 ),
                                 Column(
-                                  children: [Text("Đà nẵng"), Text("Việt Nam")],
+                                  children: [Text(items[0].titel), Text(items[0].location)],
                                 )
                               ],
-                            ));
+                        )));
                       })),
             ),
             Expanded(
@@ -343,7 +365,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     itemCount: 5,
                     itemBuilder: (BuildContext contex, int index) {
                       countter++;
-                      return Padding(
+                      return  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (builder) => DetailsPage(
+                              item: items[index]
+                            ),
+                          ),
+                        );
+                      },
+                      child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Stack(
                           children: [
@@ -360,7 +393,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           borderRadius:
                                               BorderRadius.circular(10),
                                           child: Image(
-                                              image: AssetImage('images/1.jpg'),
+                                              image: AssetImage(items[index].image,),
                                               fit: BoxFit.cover))),
                                 ],
                               ),
@@ -372,18 +405,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                   left: 20,
                                   bottom: 20,
                                   child: Text(
-                                    "Đà Lạt",
+                                    items[index].titel,
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                Text("Việt Nam")
+                                Text(items[index].location)
                               ],
                             )
                           ],
                         ),
-                      );
+                       ));
                     }))
           ],
         ));

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:baitaptuan_10/error.dart';
+import 'package:baitaptuan_10/loading.dart';
+import 'package:baitaptuan_10/data.dart';
 
-class SitesState extends StatelessWidget{
+
+class DetailsPage extends StatelessWidget{
+  final Item item;
+  const DetailsPage({Key? key, required this.item}) : super(key: key);
+ 
   @override
-  
-  List<String> title=[
-    "Vịnh Hạ Long.",
-    "Vịnh Hạ Long.",
-    
-  ];
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -16,7 +17,8 @@ class SitesState extends StatelessWidget{
         children: [
           Container(
             height: height / 1,
-            child: Image.network("https://statics.vinpearl.com/du-lich-vinh-Ha-Long-hinh-anh1_1625911963.jpg",
+            child: Image.asset(
+              item.image,
               fit: BoxFit.cover,
             ),
           ),
@@ -54,7 +56,7 @@ class SitesState extends StatelessWidget{
               padding: EdgeInsets.only(top: 20.0),
               children: [
                 Text(
-                 title[1],
+                  item.titel,
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -62,7 +64,7 @@ class SitesState extends StatelessWidget{
                 ),
                 SizedBox(height: 5.0),
                 Text(
-                 title[1],
+                 item.location,
                   style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.w400,
@@ -72,7 +74,7 @@ class SitesState extends StatelessWidget{
                 
                 SizedBox(height: 20.0),
                 Text(
-                  title[1],
+                   item.description,
                   style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.w400,
@@ -90,7 +92,7 @@ class SitesState extends StatelessWidget{
                 ),
                 SizedBox(height: 10.0),
                 Text(
-                  title[0],
+                   item.itinerary,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: Colors.grey,
