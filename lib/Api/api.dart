@@ -44,7 +44,7 @@ Future<List<DiaDanh>> api_Find_DiaDanh(String TenDiaDanh) async {
   return lstSanPham;
 }
 
-Future<String> api_Image_DiaDanh(int id) async {
+Future<String> api_Image_DiaDanh(int? id) async {
   HinhAnhDiaDanh lstSanPham = HinhAnhDiaDanh();
   try {
     final response = await http.post(
@@ -62,4 +62,40 @@ Future<String> api_Image_DiaDanh(int id) async {
     // ignore: empty_catches
   } catch (e) {}
   return lstSanPham.duongDan.toString();
+}
+
+Future<DiaDanh> api_Hot_DiaDanh() async {
+  DiaDanh lstSanPham = DiaDanh();
+  try {
+    final response =
+        await http.post(Uri.parse(urlBaseAPI + "LayDiaDanhHotNhat"));
+    if (response.statusCode == 200) {
+      final jsonRaw = json.decode(response.body);
+      lstSanPham = DiaDanh.fromJson(jsonRaw);
+    } else {
+      throw Exception(
+          "Something get wrong! Status code ${response.statusCode}");
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return lstSanPham;
+}
+
+Future<List<DiaDanh>> api_Finds_DiaDanh(String TenDiaDanh) async {
+  List<DiaDanh> lstSanPham = [];
+  try {
+    final response = await http.post(Uri.parse(urlBaseAPI + "TimKiem"), body: {"name": "$TenDiaDanh"});
+    if (response.statusCode == 200) {
+      //nay von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
+      List jsonRaw = json.decode(response.body);
+      //print(jsonRaw[0]['TenSanPham']); //truy xuat no' bang cach nhu nay
+      lstSanPham = jsonRaw.map((data) => DiaDanh.fromJson(data)).toList();
+    } else {
+      throw Exception(
+          "Something get wrong! Status code ${response.statusCode}");
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+
+  return lstSanPham;
 }

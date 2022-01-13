@@ -6,6 +6,7 @@ import 'Api/api.dart';
 import 'main.dart';
 import 'package:flutter/material.dart';
 import 'package:baitaptuan_10/ApiFolder/dia_danh_show.dart';
+import 'package:baitaptuan_10/dia_danh_search.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -48,11 +49,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     controller: _controller,
                     decoration: const InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Tìm kiếm',
+                        hintText: 'Tìm kiiếm',
                         hintStyle: TextStyle(color: Colors.white)),
                     onChanged: (String value) {
                       setState(
-                        () {},
+                        () {
+                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>Search(dd: snapshot2.data!)));
+                        },
                       );
                     },
                   ),
@@ -63,7 +66,13 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(typing ? Icons.done : Icons.search),
               onPressed: () {
                 setState(() {
-                  _controller.clear();
+                  if (typing == true) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Search(name: _controller.text)));
+                  }
                   typing = !typing;
                 });
               },
@@ -151,58 +160,77 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: ListView(
           children: [
-            Stack(
-              children: [
-                Container(
-                  height: 300,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("images/1.jpg"), fit: BoxFit.cover),
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0, 2),
-                            blurRadius: 6)
-                      ]),
-                ),
-                Positioned(
-                    left: 20,
-                    bottom: 20,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Núi fuji",
-                          style: TextStyle(
-                              letterSpacing: 1.5,
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+            FutureBuilder<DiaDanh>(
+                future: api_Hot_DiaDanh(),
+                builder: (context, snapshot) {
+                  return snapshot.hasData
+                      ? Stack(
                           children: [
-                            Icon(
-                              Icons.location_city,
-                              color: Colors.white,
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Text(
-                                "Nhật bản",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            FutureBuilder<String>(
+                                future: api_Image_DiaDanh(snapshot.data!.id),
+                                builder: (context, snapshot2) {
+                                  return snapshot2.hasData
+                                      ? Container(
+                                          height: 300,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage('images/' +
+                                                      snapshot2.data! +
+                                                      '.jpg'),
+                                                  fit: BoxFit.cover),
+                                              borderRadius: BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(15),
+                                                  bottomRight:
+                                                      Radius.circular(15)),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Colors.black26,
+                                                    offset: Offset(0, 2),
+                                                    blurRadius: 6)
+                                              ]),
+                                        )
+                                      : const CircularProgressIndicator();
+                                }),
+                            Positioned(
+                                left: 20,
+                                bottom: 20,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      snapshot.data!.tenDiaDanh.toString(),
+                                      style: TextStyle(
+                                          letterSpacing: 1.5,
+                                          color: Colors.white,
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.location_city,
+                                          color: Colors.white,
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.only(left: 10),
+                                          child: Text(
+                                            snapshot.data!.viTri.toString(),
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                )),
                           ],
                         )
-                      ],
-                    )),
-              ],
-            ),
+                      : const CircularProgressIndicator();
+                }),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

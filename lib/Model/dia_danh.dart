@@ -3,12 +3,14 @@ class DiaDanh {
   String? tenDiaDanh;
   String? viTri;
   String? moTa;
+  String? hinhAnh;
 
   DiaDanh({
     this.id,
     this.tenDiaDanh,
     this.viTri,
     this.moTa,
+    this.hinhAnh,
   });
 
   DiaDanh.fromJson(Map<String, dynamic> json) {
@@ -16,6 +18,7 @@ class DiaDanh {
     tenDiaDanh = json['TenDiaDanh'];
     viTri = json['ViTri'];
     moTa = json['MoTa'];
+    hinhAnh = json['HinhAnh'];
   }
 
   Map<String, dynamic> toJson() {
@@ -24,6 +27,7 @@ class DiaDanh {
     data['TenDiaDanh'] = this.tenDiaDanh;
     data['ViTri'] = this.viTri;
     data['MoTa'] = this.moTa;
+    data['HinhAnh'] = this.hinhAnh;
     return data;
   }
 }
