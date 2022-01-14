@@ -1,10 +1,10 @@
 import 'package:baitaptuan_10/login.dart';
 import 'package:baitaptuan_10/profile.dart';
-import 'package:baitaptuan_10/Model/hinh_anh_dia_danh.dart';
 import 'package:baitaptuan_10/Model/dia_danh.dart';
 import 'package:baitaptuan_10/Api/api.dart';
 import 'package:baitaptuan_10/main.dart';
 import 'package:flutter/material.dart';
+import 'package:baitaptuan_10/ApiFolder/dia_danh_share.dart';
 import 'dart:convert';
 
 class Detail extends StatelessWidget {
@@ -12,13 +12,7 @@ class Detail extends StatelessWidget {
   final String location;
   final String image;
   final String id;
-  Detail(
-      {Key? key,
-      required this.name,
-      required this.id,
-      required this.location,
-      required this.image})
-      : super(key: key);
+  Detail({Key? key, required this.name, required this.id, required this.location, required this.image}) : super(key: key);
   bool typing = false;
 
   @override
@@ -50,8 +44,7 @@ class Detail extends StatelessWidget {
               Container(
                 height: 95,
                 child: DrawerHeader(
-                  decoration:
-                      BoxDecoration(color: Color.fromRGBO(154, 175, 65, 1)),
+                  decoration: BoxDecoration(color: Color.fromRGBO(154, 175, 65, 1)),
                   child: Row(
                     children: [
                       CircleAvatar(
@@ -72,14 +65,10 @@ class Detail extends StatelessWidget {
                   Navigator.push(
                     context,
                     PageRouteBuilder(
-                      pageBuilder: (BuildContext context, Animation animation,
-                          Animation secondaryAnimation) {
+                      pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
                         return const Profile();
                       },
-                      transitionsBuilder: (BuildContext context,
-                          Animation<double> animation,
-                          Animation<double> secondaryAnimation,
-                          Widget child) {
+                      transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
                         return SlideTransition(
                           position: Tween<Offset>(
                             begin: const Offset(1.0, 0.0),
@@ -99,14 +88,10 @@ class Detail extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                       context,
                       PageRouteBuilder(
-                        pageBuilder: (BuildContext context, Animation animation,
-                            Animation secondaryAnimation) {
+                        pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
                           return LoginPage();
                         },
-                        transitionsBuilder: (BuildContext context,
-                            Animation<double> animation,
-                            Animation<double> secondaryAnimation,
-                            Widget child) {
+                        transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
                           return SlideTransition(
                             position: Tween<Offset>(
                               begin: const Offset(1.0, 0.0),
@@ -125,30 +110,14 @@ class Detail extends StatelessWidget {
         body: ListView(children: [
           Stack(
             children: [
-              FutureBuilder<String>(
-                  future: api_Image_DiaDanh(int.parse(id)),
-                  builder: (context, snapshot2) {
-                    return snapshot2.hasData
-                        ? Container(
-                            height: 300,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        'images/' + snapshot2.data! + '.jpg'),
-                                    fit: BoxFit.cover),
-                                borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black26,
-                                      offset: Offset(0, 2),
-                                      blurRadius: 6)
-                                ]),
-                          )
-                        : const CircularProgressIndicator();
-                  }),
+              Container(
+                height: 300,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage('images/' + id + '.jpg'), fit: BoxFit.cover),
+                    borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+                    boxShadow: [BoxShadow(color: Colors.black26, offset: Offset(0, 2), blurRadius: 6)]),
+              ),
               Positioned(
                   left: 20,
                   bottom: 20,
@@ -157,11 +126,7 @@ class Detail extends StatelessWidget {
                     children: [
                       Text(
                         name,
-                        style: TextStyle(
-                            letterSpacing: 1.5,
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(letterSpacing: 1.5, color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -183,7 +148,51 @@ class Detail extends StatelessWidget {
                   )),
             ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 50,
+                width: ((dvsize.width - 18) / 100) * 25,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.thumb_up),
+                ),
+              ),
+              Container(
+                height: 50,
+                width: ((dvsize.width - 18) / 100) * 25,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
+                child: IconButton(
+                  onPressed: () {
+                    //  Navigator.push(context, MaterialPageRoute(builder: (context) => Search(name: _controller.text)));
+                  },
+                  icon: Icon(Icons.thumb_down),
+                ),
+              ),
+              Container(
+                height: 50,
+                width: ((dvsize.width - 18) / 100) * 25,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.map),
+                ),
+              ),
+              Container(
+                height: 50,
+                width: ((dvsize.width - 18) / 100) * 25,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Share()));
+                  },
+                  icon: Icon(Icons.share),
+                ),
+              ),
+            ],
+          )
         ]));
   }
 }
-

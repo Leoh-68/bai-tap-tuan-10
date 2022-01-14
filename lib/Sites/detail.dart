@@ -6,7 +6,6 @@ class SitesState extends StatelessWidget{
   List<String> title=[
     "Vịnh Hạ Long.",
     "Vịnh Hạ Long.",
-    
   ];
   @override
   Widget build(BuildContext context) {

@@ -42,12 +42,9 @@ class LoginPageState extends State<LoginPage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("images/VV_icon.png")),
+                            image: DecorationImage(fit: BoxFit.cover, image: AssetImage("images/VV_icon.png")),
                             border: Border.all(color: Colors.white, width: 10),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(250)),
+                            borderRadius: BorderRadius.all(Radius.circular(250)),
                           ),
                           height: 250,
                           width: 250,
@@ -85,20 +82,13 @@ class LoginPageState extends State<LoginPage> {
                             child: TextButton(
                               onPressed: () {
                                 setState(() {});
-                                if (_username.text == "a" &&
-                                    _pass.text == "a") {
+                                if (_username.text == "a" && _pass.text == "a") {
                                   Navigator.pushAndRemoveUntil(
                                       context,
-                                      PageRouteBuilder(pageBuilder:
-                                          (BuildContext context,
-                                              Animation animation,
-                                              Animation secondaryAnimation) {
+                                      PageRouteBuilder(pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
                                         return const LoadingScreen();
-                                      }, transitionsBuilder: (BuildContext
-                                              context,
-                                          Animation<double> animation,
-                                          Animation<double> secondaryAnimation,
-                                          Widget child) {
+                                      }, transitionsBuilder:
+                                          (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
                                         return SlideTransition(
                                           position: Tween<Offset>(
                                             begin: const Offset(1.0, 0.0),
@@ -112,15 +102,11 @@ class LoginPageState extends State<LoginPage> {
                                   Navigator.push(
                                     context,
                                     PageRouteBuilder(
-                                      pageBuilder: (BuildContext context,
-                                          Animation animation,
-                                          Animation secondaryAnimation) {
+                                      pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
                                         return const ErrorPage();
                                       },
-                                      transitionsBuilder: (BuildContext context,
-                                          Animation<double> animation,
-                                          Animation<double> secondaryAnimation,
-                                          Widget child) {
+                                      transitionsBuilder:
+                                          (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
                                         return SlideTransition(
                                           position: Tween<Offset>(
                                             begin: const Offset(1.0, 0.0),
@@ -133,14 +119,10 @@ class LoginPageState extends State<LoginPage> {
                                   );
                                 }
                               },
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.resolveWith(
-                                          (states) => Colors.black)),
+                              style: ButtonStyle(backgroundColor: MaterialStateProperty.resolveWith((states) => Colors.black)),
                               child: const Text(
                                 "Sign in",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+                                style: TextStyle(color: Colors.white, fontSize: 20),
                               ),
                             ),
                           ),

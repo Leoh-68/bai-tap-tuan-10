@@ -1,6 +1,5 @@
 import 'package:baitaptuan_10/login.dart';
 import 'package:baitaptuan_10/profile.dart';
-import 'Model/hinh_anh_dia_danh.dart';
 import 'Model/dia_danh.dart';
 import 'Api/api.dart';
 import 'main.dart';
@@ -47,10 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: TextField(
                     style: const TextStyle(color: Colors.white),
                     controller: _controller,
-                    decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Tìm kiiếm',
-                        hintStyle: TextStyle(color: Colors.white)),
+                    decoration: const InputDecoration(border: InputBorder.none, hintText: 'Tìm kiiếm', hintStyle: TextStyle(color: Colors.white)),
                     onChanged: (String value) {
                       setState(
                         () {
@@ -67,11 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 setState(() {
                   if (typing == true) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                Search(name: _controller.text)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Search(name: _controller.text)));
                   }
                   typing = !typing;
                 });
@@ -86,8 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 height: 95,
                 child: DrawerHeader(
-                  decoration:
-                      BoxDecoration(color: Color.fromRGBO(154, 175, 65, 1)),
+                  decoration: BoxDecoration(color: Color.fromRGBO(154, 175, 65, 1)),
                   child: Row(
                     children: [
                       CircleAvatar(
@@ -108,14 +99,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                     context,
                     PageRouteBuilder(
-                      pageBuilder: (BuildContext context, Animation animation,
-                          Animation secondaryAnimation) {
+                      pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
                         return const Profile();
                       },
-                      transitionsBuilder: (BuildContext context,
-                          Animation<double> animation,
-                          Animation<double> secondaryAnimation,
-                          Widget child) {
+                      transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
                         return SlideTransition(
                           position: Tween<Offset>(
                             begin: const Offset(1.0, 0.0),
@@ -135,14 +122,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       PageRouteBuilder(
-                        pageBuilder: (BuildContext context, Animation animation,
-                            Animation secondaryAnimation) {
+                        pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
                           return LoginPage();
                         },
-                        transitionsBuilder: (BuildContext context,
-                            Animation<double> animation,
-                            Animation<double> secondaryAnimation,
-                            Widget child) {
+                        transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
                           return SlideTransition(
                             position: Tween<Offset>(
                               begin: const Offset(1.0, 0.0),
@@ -166,33 +149,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   return snapshot.hasData
                       ? Stack(
                           children: [
-                            FutureBuilder<String>(
-                                future: api_Image_DiaDanh(snapshot.data!.id),
-                                builder: (context, snapshot2) {
-                                  return snapshot2.hasData
-                                      ? Container(
-                                          height: 300,
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: AssetImage('images/' +
-                                                      snapshot2.data! +
-                                                      '.jpg'),
-                                                  fit: BoxFit.cover),
-                                              borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(15),
-                                                  bottomRight:
-                                                      Radius.circular(15)),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.black26,
-                                                    offset: Offset(0, 2),
-                                                    blurRadius: 6)
-                                              ]),
-                                        )
-                                      : const CircularProgressIndicator();
-                                }),
+                            Container(
+                              height: 300,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(image: AssetImage('images/' + snapshot.data!.hinhAnh! + '.jpg'), fit: BoxFit.cover),
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+                                  boxShadow: const [BoxShadow(color: Colors.black26, offset: Offset(0, 2), blurRadius: 6)]),
+                            ),
                             Positioned(
                                 left: 20,
                                 bottom: 20,
@@ -201,17 +165,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   children: [
                                     Text(
                                       snapshot.data!.tenDiaDanh.toString(),
-                                      style: TextStyle(
-                                          letterSpacing: 1.5,
-                                          color: Colors.white,
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold),
+                                      style: const TextStyle(letterSpacing: 1.5, color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.location_city,
                                           color: Colors.white,
                                         ),
@@ -219,8 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           padding: EdgeInsets.only(left: 10),
                                           child: Text(
                                             snapshot.data!.viTri.toString(),
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: TextStyle(color: Colors.white),
                                           ),
                                         )
                                       ],
@@ -237,9 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   height: 50,
                   width: ((dvsize.width - 18) / 100) * 25,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.grey),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.bike_scooter),
@@ -248,9 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   height: 50,
                   width: ((dvsize.width - 18) / 100) * 25,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.grey),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.bike_scooter),
@@ -259,9 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   height: 50,
                   width: ((dvsize.width - 18) / 100) * 25,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.grey),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.bike_scooter),
@@ -270,9 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   height: 50,
                   width: ((dvsize.width - 18) / 100) * 25,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.grey),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.bike_scooter),
@@ -308,19 +258,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                       child: Row(
                                         children: [
                                           Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          50)),
+                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
                                               height: 100,
                                               width: 100,
                                               child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  child: Image(
-                                                      image: AssetImage(
-                                                          'images/1.jpg'),
-                                                      fit: BoxFit.cover))),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  child: Image(image: AssetImage('images/1.jpg'), fit: BoxFit.cover))),
                                         ],
                                       ),
                                     ),
@@ -336,7 +279,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
                 child: FutureBuilder<List<DiaDanh>>(
                     future: api_GetAll_DiaDanh(),
-                    builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+                    builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         print(snapshot.error);
                       }
@@ -357,37 +300,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                               children: [
                                                 TextButton(
                                                   child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      50)),
+                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
                                                       height: 200,
                                                       width: dvsize.width - 32,
                                                       child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          child: FutureBuilder<
-                                                                  String>(
-                                                              future: api_Image_DiaDanh(
-                                                                  snapshot
-                                                                      .data![
-                                                                          index]
-                                                                      .id),
-                                                              builder: (context,
-                                                                  snapshot2) {
-                                                                return snapshot2
-                                                                        .hasData
-                                                                    ? Image(
-                                                                        image: AssetImage('images/' +
-                                                                            snapshot2
-                                                                                .data! +
-                                                                            '.jpg'),
-                                                                        fit: BoxFit
-                                                                            .cover)
-                                                                    : const CircularProgressIndicator();
-                                                              }))),
+                                                          borderRadius: BorderRadius.circular(10),
+                                                          child: Image(
+                                                              image: AssetImage('images/' + snapshot.data![index].hinhAnh! + '.jpg'),
+                                                              fit: BoxFit.cover))),
                                                   onPressed: () {},
                                                 )
                                               ],
@@ -398,23 +318,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                     TextButton(
                                       child: Container(
-                                        padding: EdgeInsets.only(
-                                            bottom: 10, left: 10),
+                                        padding: EdgeInsets.only(bottom: 10, left: 10),
                                         child: Align(
                                           alignment: Alignment.bottomLeft,
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                snapshot
-                                                    .data![index].tenDiaDanh!
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                snapshot.data![index].tenDiaDanh!.toString(),
+                                                style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                                               ),
                                               Text(snapshot.data![index].viTri!,
                                                   style: TextStyle(
@@ -429,23 +341,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (contex) => Detail(
-                                                    id: snapshot.data![index].id
-                                                        .toString(),
-                                                    name: snapshot
-                                                        .data![index].tenDiaDanh
-                                                        .toString(),
-                                                    location: snapshot
-                                                        .data![index].viTri!,
+                                                    id: snapshot.data![index].hinhAnh.toString(),
+                                                    name: snapshot.data![index].tenDiaDanh.toString(),
+                                                    location: snapshot.data![index].viTri!,
                                                     image: location)));
                                       },
                                     )
                                   ],
                                 );
                               })
-                          : const Center(
-                              child: Padding(
-                                  padding: EdgeInsets.only(top: 250),
-                                  child: CircularProgressIndicator()));
+                          : const Center(child: Padding(padding: EdgeInsets.only(top: 250), child: CircularProgressIndicator()));
                     })),
           ],
         ));
