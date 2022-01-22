@@ -12,7 +12,8 @@ class Detail extends StatelessWidget {
   final String location;
   final String image;
   final String id;
-  Detail({Key? key, required this.name, required this.id, required this.location, required this.image}) : super(key: key);
+  final String mota;
+  Detail({Key? key, required this.mota, required this.name, required this.id, required this.location, required this.image}) : super(key: key);
   bool typing = false;
 
   @override
@@ -89,7 +90,7 @@ class Detail extends StatelessWidget {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
-                          return LoginPage();
+                          return const LoginPage();
                         },
                         transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
                           return SlideTransition(
@@ -126,20 +127,20 @@ class Detail extends StatelessWidget {
                     children: [
                       Text(
                         name,
-                        style: TextStyle(letterSpacing: 1.5, color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                        style: const TextStyle(letterSpacing: 1.5, color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.location_city,
                             color: Colors.white,
                           ),
                           Container(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: const EdgeInsets.only(left: 10),
                             child: Text(
                               location,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                           )
                         ],
@@ -157,7 +158,7 @@ class Detail extends StatelessWidget {
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.thumb_up),
+                  icon: const Icon(Icons.thumb_up),
                 ),
               ),
               Container(
@@ -168,7 +169,7 @@ class Detail extends StatelessWidget {
                   onPressed: () {
                     //  Navigator.push(context, MaterialPageRoute(builder: (context) => Search(name: _controller.text)));
                   },
-                  icon: Icon(Icons.thumb_down),
+                  icon: const Icon(Icons.thumb_down),
                 ),
               ),
               Container(
@@ -177,7 +178,7 @@ class Detail extends StatelessWidget {
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.map),
+                  icon: const Icon(Icons.map),
                 ),
               ),
               Container(
@@ -186,13 +187,19 @@ class Detail extends StatelessWidget {
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
                 child: IconButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Share()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Sharea(id: id,idaccount: "1",)));
                   },
-                  icon: Icon(Icons.share),
+                  icon: const Icon(Icons.share),
                 ),
-              ),
+              )
             ],
-          )
+          ),
+          Container(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                mota,
+                style: TextStyle(fontSize: 20),
+              ))
         ]));
   }
 }

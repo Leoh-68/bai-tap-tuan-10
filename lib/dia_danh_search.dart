@@ -171,6 +171,7 @@ class _SearchState extends State<Search> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (contex) => Detail(
+                                               mota: snapshot.data![index].moTa.toString(),
                                                 id: snapshot.data![index].id.toString(),
                                                 name: snapshot.data![index].tenDiaDanh.toString(),
                                                 location: snapshot.data![index].viTri!,

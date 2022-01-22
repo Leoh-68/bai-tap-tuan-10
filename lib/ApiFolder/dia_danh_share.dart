@@ -1,23 +1,21 @@
-import 'dart:html';
-
+import 'package:baitaptuan_10/Api/api.dart';
 import 'package:baitaptuan_10/login.dart';
 import 'package:baitaptuan_10/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:baitaptuan_10/dia_danh_search.dart';
-import 'package:baitaptuan_10/Model/dia_danh.dart';
-import 'package:baitaptuan_10/Model/taikhoan.dart';
-import 'package:image_picker/image_picker.dart';
 
-
-class Share extends StatefulWidget {
+class Sharea extends StatefulWidget {
+  final String id;
+  final String idaccount;
+  Sharea({Key? key, required this.id, required this.idaccount}) : super(key: key);
   @override
-  State<Share> createState() => _ShareState();
+  State<Sharea> createState() => _ShareaState();
 }
 
-class _ShareState extends State<Share> {
+class _ShareaState extends State<Sharea> {
   bool typing = false;
   String text = "";
-  String location = "3";
+  String danhGia = 'Tốt';
+  String result = "";
   late TextEditingController _controller;
 
   @override
@@ -33,28 +31,18 @@ class _ShareState extends State<Share> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     var dvsize = MediaQuery.of(context).size;
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(154, 175, 65, 1),
-          title: Text("Share"),
-          actions: [
-            IconButton(
-              icon: Icon(typing ? Icons.done : Icons.search),
-              onPressed: () {
-                setState(() {
-                  if (typing == true) {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Search(name: _controller.text)));
-                  }
-                  typing = !typing;
-                });
-              },
-            )
-          ],
-        ),
+        appBar: AppBar(backgroundColor: const Color.fromRGBO(154, 175, 65, 1), title: Text("Share"), actions: [
+          IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )
+        ]),
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -137,7 +125,44 @@ class _ShareState extends State<Share> {
                     decoration: InputDecoration.collapsed(hintText: "Enter your text here"),
                   ),
                 )),
-          
+            Text(
+              "Đánh giá của bạn",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            Center(
+              child: DropdownButton<String>(
+                value: danhGia,
+                elevation: 16,
+                style: const TextStyle(color: Colors.deepPurple),
+                underline: Container(
+                  height: 2,
+                  width: 150,
+                  color: Colors.deepPurpleAccent,
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    danhGia = newValue!;
+                  });
+                },
+                items: <String>['Tốt', 'Trung bình', 'Kém', 'Không nên'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
+            FlatButton(
+                onPressed: () {
+                  setState(() {
+                    api_Post(_controller.text, danhGia, widget.id, "1").then((value) {
+                      result = value;
+                    });
+                    _controller.clear();
+                  });
+                },
+                child: Text("Submit")),
+            Text("Trạng thái share: $result")
           ],
         ));
   }

@@ -2,7 +2,7 @@ import 'package:baitaptuan_10/login.dart';
 import 'package:baitaptuan_10/profile.dart';
 import 'Model/dia_danh.dart';
 import 'Api/api.dart';
-import 'main.dart';
+import 'ApiFolder/post_share.dart';
 import 'package:flutter/material.dart';
 import 'package:baitaptuan_10/ApiFolder/dia_danh_show.dart';
 import 'package:baitaptuan_10/dia_danh_search.dart';
@@ -195,7 +195,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   height: 50,
                   width: ((dvsize.width - 18) / 100) * 25,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: Color.fromRGBO(191, 255, 252, 1)),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.home),
+                  ),
+                ),
+                Container(
+                  height: 50,
+                  width: ((dvsize.width - 18) / 100) * 25,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: Color.fromRGBO(191, 255, 252, 1)),
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.bike_scooter),
@@ -204,7 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   height: 50,
                   width: ((dvsize.width - 18) / 100) * 25,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: Color.fromRGBO(191, 255, 252, 1)),
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.bike_scooter),
@@ -213,19 +222,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   height: 50,
                   width: ((dvsize.width - 18) / 100) * 25,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: Color.fromRGBO(191, 255, 252, 1)),
                   child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.bike_scooter),
-                  ),
-                ),
-                Container(
-                  height: 50,
-                  width: ((dvsize.width - 18) / 100) * 25,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.bike_scooter),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Post()));
+                    },
+                    icon: Icon(Icons.content_paste_outlined),
                   ),
                 ),
               ],
@@ -341,7 +343,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (contex) => Detail(
-                                                    id: snapshot.data![index].hinhAnh.toString(),
+                                                    mota: snapshot.data![index].moTa.toString(),
+                                                    id: snapshot.data![index].id.toString(),
                                                     name: snapshot.data![index].tenDiaDanh.toString(),
                                                     location: snapshot.data![index].viTri!,
                                                     image: location)));
